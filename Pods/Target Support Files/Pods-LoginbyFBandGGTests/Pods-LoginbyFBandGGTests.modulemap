@@ -1,0 +1,6 @@
+framework module Pods_LoginbyFBandGGTests {
+  umbrella header "Pods-LoginbyFBandGGTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

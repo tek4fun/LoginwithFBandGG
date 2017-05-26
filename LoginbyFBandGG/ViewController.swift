@@ -109,7 +109,7 @@ class ViewController: UIViewController,GIDSignInDelegate {
                         let alert = UIAlertController(title: "Login Success" , message: "Login with Facebook User: \(User.share.userFB)", preferredStyle: .alert)
                         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                         self.present(alert, animated: true, completion: nil)
-                        self.defaults.set(User.share.isLoginFB, forKey: "isLoginFB")
+                        defaults.set(User.share.isLoginFB, forKey: "isLoginFB")
                     })
                 }
             }
@@ -121,7 +121,7 @@ class ViewController: UIViewController,GIDSignInDelegate {
             let alert = UIAlertController(title: "Logout Successful" , message: "Facebook Logout Successful!", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             self.present(alert, animated: true, completion: nil)
-            self.defaults.set(User.share.isLoginFB, forKey: "isLoginFB")
+            defaults.set(User.share.isLoginFB, forKey: "isLoginFB")
         }
     }
     
@@ -137,7 +137,7 @@ class ViewController: UIViewController,GIDSignInDelegate {
                     print("data user facebook:\(result)")
                     if let user = dataResult["name"] as? String {
                         User.share.userFB = user
-                        self.defaults.set(User.share.userFB, forKey: "userFB")
+                        defaults.set(User.share.userFB, forKey: "userFB")
                     }
                     if let picture = dataResult["picture"] {
                         if let data = picture["data"] as? [String:AnyObject] {
@@ -147,7 +147,7 @@ class ViewController: UIViewController,GIDSignInDelegate {
                                 let avatar = UIImage(data: pic!)!
                                 User.share.userFBImage = avatar
                                 let imageData = UIImagePNGRepresentation(avatar)
-                                self.defaults.set(imageData, forKey: "userFBImage")
+                                defaults.set(imageData, forKey: "userFBImage")
                             }
                         }
                     }
@@ -189,13 +189,13 @@ extension ViewController: GIDSignInUIDelegate {
             isLoginGG = true
         }
         User.share.isLoginGG = isLoginGG
-        self.defaults.set(User.share.isLoginGG, forKey: "isLoginGG")
+        defaults.set(User.share.isLoginGG, forKey: "isLoginGG")
     }
     
     public func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
         if (error == nil) {
             User.share.userGG = user.profile.name
-            self.defaults.set(User.share.userGG, forKey: "userGG")
+            defaults.set(User.share.userGG, forKey: "userGG")
             
             if user.profile.hasImage {
                 let pic = try? Data(contentsOf: user.profile.imageURL(withDimension: 100))
@@ -203,7 +203,7 @@ extension ViewController: GIDSignInUIDelegate {
                 let avatar = UIImage(data: pic!)!
                 let imageData = UIImagePNGRepresentation(avatar)
                 //let imageData = UIImageJPEGRepresentation(User.share.userGGImage, 1.0)
-                self.defaults.set(imageData, forKey: "userGGImage")
+                defaults.set(imageData, forKey: "userGGImage")
             }
             let alert = UIAlertController(title: "Login Success" , message: "Login with Google User: \(User.share.userGG)", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
